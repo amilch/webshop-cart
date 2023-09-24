@@ -12,44 +12,50 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(
-            \Domain\Interfaces\CategoryRepository::class,
-            \App\Repositories\CategoryDatabaseRepository::class
+            \Domain\Interfaces\CartRepository::class,
+            \App\Repositories\CartDatabaseRepository::class
+        );
+
+        $this->app->bind(
+            \Domain\Interfaces\CartFactory::class,
+            \App\Factories\CartModelFactory::class
+        );
+
+        $this->app->bind(
+            \Domain\Interfaces\CartItemRepository::class,
+            \App\Repositories\CartItemDatabaseRepository::class
+        );
+
+        $this->app->bind(
+            \Domain\Interfaces\CartItemFactory::class,
+            \App\Factories\CartItemModelFactory::class
         );
 
         $this->app
-            ->when(\App\Http\Controllers\GetAllCategoriesController::class)
-            ->needs(\Domain\UseCases\GetAllCategories\GetAllCategoriesInputPort::class)
+            ->when(\App\Http\Controllers\UpdateCartItemController::class)
+            ->needs(\Domain\UseCases\UpdateCartItem\UpdateCartItemInputPort::class)
             ->give(function ($app) {
-                return $app->make(\Domain\UseCases\GetAllCategories\GetAllCategoriesInteractor::class, [
-                    'output' => $app->make(\App\Adapters\Presenters\GetAllCategoriesJsonPresenter::class)
+                return $app->make(\Domain\UseCases\UpdateCartItem\UpdateCartItemInteractor::class, [
+                    'output' => $app->make(\App\Adapters\Presenters\UpdateCartItemJsonPresenter::class)
                 ]);
             });
 
         $this->app->bind(
-            \Domain\Interfaces\ProductRepository::class,
-            \App\Repositories\ProductDatabaseRepository::class
+            \Domain\Interfaces\SessionService::class,
+            \App\Services\SessionService::class
         );
 
         $this->app->bind(
-            \Domain\Interfaces\ProductFactory::class,
-            \App\Factories\ProductModelFactory::class
+            \Domain\Interfaces\AuthService::class,
+            \App\Services\JWTAuthService::class
         );
 
         $this->app
-            ->when(\App\Http\Controllers\CreateProductController::class)
-            ->needs(\Domain\UseCases\CreateProduct\CreateProductInputPort::class)
+            ->when(\App\Http\Controllers\GetCartController::class)
+            ->needs(\Domain\UseCases\GetCart\GetCartInputPort::class)
             ->give(function ($app) {
-                return $app->make(\Domain\UseCases\CreateProduct\CreateProductInteractor::class, [
-                    'output' => $app->make(\App\Adapters\Presenters\CreateProductJsonPresenter::class)
-                ]);
-            });
-
-        $this->app
-            ->when(\App\Http\Controllers\GetProductsController::class)
-            ->needs(\Domain\UseCases\GetProducts\GetProductsInputPort::class)
-            ->give(function ($app) {
-                return $app->make(\Domain\UseCases\GetProducts\GetProductsInteractor::class, [
-                    'output' => $app->make(\App\Adapters\Presenters\GetProductsJsonPresenter::class)
+                return $app->make(\Domain\UseCases\GetCart\GetCartInteractor::class, [
+                    'output' => $app->make(\App\Adapters\Presenters\GetCartJsonPresenter::class)
                 ]);
             });
     }

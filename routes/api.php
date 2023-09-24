@@ -14,9 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/categories', '\App\Http\Controllers\GetAllCategoriesController');
-Route::get('/products', '\App\Http\Controllers\GetProductsController');
-Route::post('/products', '\App\Http\Controllers\CreateProductController');
+Route::get('/cart', '\App\Http\Controllers\GetCartController');
+Route::post('/cart/item', '\App\Http\Controllers\UpdateCartItemController');
 
 Route::group(['middleware' => ['auth:api', 'can:admin']], function() {
 
