@@ -61,6 +61,12 @@ class CartItem extends Model implements CartItemEntity
         $this->save();
     }
 
+    public function addQuantity(int $quantity): void
+    {
+        $this->quantity += $quantity;
+        $this->save();
+    }
+
     public function removeItem(): void
     {
         $this->delete();

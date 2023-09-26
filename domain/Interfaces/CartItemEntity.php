@@ -16,5 +16,7 @@ interface CartItemEntity
 
     public function setQuantity(int $quantity): void;
 
+    public function addQuantity(int $quantity): void;
+
     public function removeItem(): void;
 }

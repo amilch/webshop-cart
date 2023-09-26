@@ -48,6 +48,15 @@ class AppServiceProvider extends ServiceProvider
                     'output' => $app->make(\App\Adapters\Presenters\GetCartJsonPresenter::class)
                 ]);
             });
+
+        $this->app
+            ->when(\App\Http\Controllers\AddCartItemController::class)
+            ->needs(\Domain\UseCases\AddCartItem\AddCartItemInputPort::class)
+            ->give(function ($app) {
+                return $app->make(\Domain\UseCases\AddCartItem\AddCartItemInteractor::class, [
+                    'output' => $app->make(\App\Adapters\Presenters\AddCartItemJsonPresenter::class)
+                ]);
+            });
     }
 
     /**
