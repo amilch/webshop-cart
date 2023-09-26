@@ -6,7 +6,6 @@ use Domain\Entities\SessionEntity;
 use Domain\Interfaces\AuthService;
 use Domain\Interfaces\CartEntity;
 use Domain\Interfaces\CartFactory;
-use Domain\Interfaces\CartItemRepository;
 use Domain\Interfaces\CartRepository;
 use Domain\ValueObjects\MoneyValueObject;
 
@@ -14,7 +13,6 @@ class CartService
 {
     public function __construct(
         private CartRepository $cartRepository,
-        private CartItemRepository $cartItemRepository,
         private AuthService $authService,
         private CartFactory $cartFactory,
     ) {}
@@ -61,7 +59,7 @@ class CartService
     {
         foreach($second->getItems() as $cartItem)
         {
-            $this->cartItemRepository->upsert($cartItem, $main);
+            $main->add($cartItem);
         }
 
         $this->cartRepository->delete($second);

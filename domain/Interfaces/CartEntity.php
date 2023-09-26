@@ -10,6 +10,10 @@ interface CartEntity
 {
     public function getItems(): array;
 
+    public function getWithSku(string $sku): ?CartItemEntity;
+
+    public function add(CartItemEntity $cartItem): void;
+
     public function getUser(): ?UserEntity;
 
     public function getSession(): ?SessionEntity;

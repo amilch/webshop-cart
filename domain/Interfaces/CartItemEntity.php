@@ -13,4 +13,8 @@ interface CartItemEntity
     public function getQuantity(): int;
 
     public function getPrice(): MoneyValueObject;
+
+    public function setQuantity(int $quantity): void;
+
+    public function removeItem(): void;
 }

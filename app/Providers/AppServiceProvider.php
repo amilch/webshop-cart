@@ -22,21 +22,16 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            \Domain\Interfaces\CartItemRepository::class,
-            \App\Repositories\CartItemDatabaseRepository::class
-        );
-
-        $this->app->bind(
             \Domain\Interfaces\CartItemFactory::class,
             \App\Factories\CartItemModelFactory::class
         );
 
         $this->app
-            ->when(\App\Http\Controllers\UpdateCartItemController::class)
-            ->needs(\Domain\UseCases\UpdateCartItem\UpdateCartItemInputPort::class)
+            ->when(\App\Http\Controllers\UpsertCartItemController::class)
+            ->needs(\Domain\UseCases\UpsertCartItem\UpsertCartItemInputPort::class)
             ->give(function ($app) {
-                return $app->make(\Domain\UseCases\UpdateCartItem\UpdateCartItemInteractor::class, [
-                    'output' => $app->make(\App\Adapters\Presenters\UpdateCartItemJsonPresenter::class)
+                return $app->make(\Domain\UseCases\UpsertCartItem\UpsertCartItemInteractor::class, [
+                    'output' => $app->make(\App\Adapters\Presenters\UpsertCartItemJsonPresenter::class)
                 ]);
             });
 

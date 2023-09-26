@@ -54,4 +54,15 @@ class CartItem extends Model implements CartItemEntity
     {
         return $this->attributes['quantity'];
     }
+
+    public function setQuantity(int $quantity): void
+    {
+        $this->quantity = $quantity;
+        $this->save();
+    }
+
+    public function removeItem(): void
+    {
+        $this->delete();
+    }
 }

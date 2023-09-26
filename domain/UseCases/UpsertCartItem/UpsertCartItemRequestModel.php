@@ -1,8 +1,8 @@
 <?php
 
-namespace Domain\UseCases\UpdateCartItem;
+namespace Domain\UseCases\UpsertCartItem;
 
-class UpdateCartItemRequestModel
+class UpsertCartItemRequestModel
 {
     /**
      * @param array<mixed> $attributes

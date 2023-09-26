@@ -5,6 +5,7 @@ namespace App\Models;
 use Domain\Entities\SessionEntity;
 use Domain\Entities\UserEntity;
 use Domain\Interfaces\CartEntity;
+use Domain\Interfaces\CartItemEntity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -43,5 +44,15 @@ class Cart extends Model implements CartEntity
     public function getItems(): array
     {
         return $this->cartItems->all();
+    }
+
+    public function getWithSku(string $sku): ?CartItemEntity
+    {
+        return $this->cartItems()->where('sku', $sku)->first();
+    }
+
+    public function add(CartItemEntity $cartItem): void
+    {
+        $this->cartItems()->save($cartItem);
     }
 }

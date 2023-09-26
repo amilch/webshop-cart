@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/cart', '\App\Http\Controllers\GetCartController');
-Route::post('/cart/item', '\App\Http\Controllers\UpdateCartItemController');
+Route::put('/cart/item', '\App\Http\Controllers\UpsertCartItemController');
 
 Route::group(['middleware' => ['auth:api', 'can:admin']], function() {
 

@@ -8,7 +8,7 @@ use Domain\Interfaces\CartItemEntity;
 use Domain\ValueObjects\MoneyValueObject;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CartItemUpdatedResource extends JsonResource
+class CartItemUpsertedResource extends JsonResource
 {
     public function __construct(
         protected CartEntity $cart,

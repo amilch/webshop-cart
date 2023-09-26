@@ -1,11 +1,11 @@
 <?php
 
-namespace Domain\UseCases\UpdateCartItem;
+namespace Domain\UseCases\UpsertCartItem;
 
 use Domain\Interfaces\CartEntity;
 use Domain\ValueObjects\MoneyValueObject;
 
-class UpdateCartItemResponseModel
+class UpsertCartItemResponseModel
 {
     public function __construct(
         private CartEntity $cart,
