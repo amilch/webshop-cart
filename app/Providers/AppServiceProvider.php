@@ -57,6 +57,15 @@ class AppServiceProvider extends ServiceProvider
                     'output' => $app->make(\App\Adapters\Presenters\AddCartItemJsonPresenter::class)
                 ]);
             });
+
+        $this->app
+            ->when(\App\Http\Controllers\DeleteCartController::class)
+            ->needs(\Domain\UseCases\DeleteCart\DeleteCartInputPort::class)
+            ->give(function ($app) {
+                return $app->make(\Domain\UseCases\DeleteCart\DeleteCartInteractor::class, [
+                    'output' => $app->make(\App\Adapters\Presenters\DeleteCartJsonPresenter::class)
+                ]);
+            });
     }
 
     /**

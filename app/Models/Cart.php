@@ -55,4 +55,9 @@ class Cart extends Model implements CartEntity
     {
         $this->cartItems()->save($cartItem);
     }
+
+    public function remove(): void
+    {
+        $this->delete();
+    }
 }

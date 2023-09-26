@@ -17,4 +17,6 @@ interface CartEntity
     public function getUser(): ?UserEntity;
 
     public function getSession(): ?SessionEntity;
+
+    public function remove(): void;
 }
