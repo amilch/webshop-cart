@@ -5,7 +5,7 @@ namespace Domain\Entities;
 class SessionEntity
 {
     public function __construct(
-        private readonly string $id,
+        private string $id,
     ) {}
 
     public function getId() {

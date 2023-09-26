@@ -41,13 +41,8 @@ class AppServiceProvider extends ServiceProvider
             });
 
         $this->app->bind(
-            \Domain\Interfaces\SessionService::class,
-            \App\Services\SessionService::class
-        );
-
-        $this->app->bind(
             \Domain\Interfaces\AuthService::class,
-            \App\Services\JWTAuthService::class
+            \App\Services\KeycloakAuthService::class
         );
 
         $this->app

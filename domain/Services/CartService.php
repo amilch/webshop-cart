@@ -2,27 +2,26 @@
 
 namespace Domain\Services;
 
-use App\Services\SessionService;
+use Domain\Entities\SessionEntity;
 use Domain\Interfaces\AuthService;
 use Domain\Interfaces\CartEntity;
 use Domain\Interfaces\CartFactory;
 use Domain\Interfaces\CartItemRepository;
 use Domain\Interfaces\CartRepository;
+use Domain\ValueObjects\MoneyValueObject;
 
-class CartManipulationService
+class CartService
 {
     public function __construct(
         private CartRepository $cartRepository,
         private CartItemRepository $cartItemRepository,
         private AuthService $authService,
-        private SessionService $sessionService,
         private CartFactory $cartFactory,
     ) {}
 
-    public function mergeCartsOfUserAndSession(bool $create_new = false): bool
+    public function mergeCartsOfUserAndSession(SessionEntity $session, bool $create_new = false): bool
     {
         $user = $this->authService->getCurrentUser();
-        $session = $this->sessionService->getSession();
         $merged = false;
 
         $session_carts = $this->cartRepository->all(session: $session);
@@ -58,7 +57,7 @@ class CartManipulationService
         return $merged;
     }
 
-    public function merge(CartEntity $main,CartEntity $second): void
+    protected function merge(CartEntity $main,CartEntity $second): void
     {
         foreach($second->getItems() as $cartItem)
         {
@@ -66,5 +65,14 @@ class CartManipulationService
         }
 
         $this->cartRepository->delete($second);
+    }
+
+    public function getTotal(CartEntity $cart): MoneyValueObject
+    {
+        return array_reduce(
+            $cart->getItems(),
+            fn ($carry, $item) => $carry->add($item->getPrice()),
+            MoneyValueObject::fromInt(0)
+        );
     }
 }

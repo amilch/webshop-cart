@@ -6,5 +6,5 @@ use Domain\Interfaces\ViewModel;
 
 interface GetCartInputPort
 {
-    public function getCart(): ViewModel;
+    public function getCart(GetCartRequestModel $request): ViewModel;
 }

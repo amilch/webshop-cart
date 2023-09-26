@@ -13,7 +13,7 @@ class UpdateCartItemJsonPresenter implements UpdateCartItemOutputPort
     public function cartItemUpdated(UpdateCartItemResponseModel $model): ViewModel
     {
         return new JsonResourceViewModel(
-            new CartItemUpdatedResource($model->getCart(), $model->wasMerged())
+            new CartItemUpdatedResource($model->getCart(), $model->wasMerged(), $model->getTotal())
         );
     }
 }

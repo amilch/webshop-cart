@@ -13,7 +13,7 @@ class GetCartJsonPresenter implements GetCartOutputPort
     public function products(GetCartResponseModel $model): ViewModel
     {
         return new JsonResourceViewModel(
-            new CartResource($model->getCart(), $model->wasMerged())
+            new CartResource($model->getCart(), $model->wasMerged(), $model->getTotal())
         );
     }
 }

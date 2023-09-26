@@ -31,4 +31,9 @@ class UpdateCartItemRequestModel
     {
         return $this->attributes['quantity'];
     }
+
+    public function getSessionId(): string
+    {
+        return $this->attributes['session_id'];
+    }
 }

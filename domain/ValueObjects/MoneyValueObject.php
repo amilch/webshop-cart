@@ -29,11 +29,16 @@ class MoneyValueObject
 
     public function __toString()
     {
-        return number_format($this->value / 100.0, 2);
+        return number_format($this->value / 100.0, 2, ',', '.');
     }
 
     public function isEqualTo(self $other): bool
     {
         return $this->value === $other->value;
+    }
+
+    public function add(self $other): self
+    {
+        return new self($this->value + $other->value);
     }
 }
