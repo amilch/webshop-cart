@@ -67,10 +67,10 @@ class CartService
 
     public function getTotal(CartEntity $cart): MoneyValueObject
     {
-        return array_reduce(
+        $total_int = array_reduce(
             $cart->getItems(),
-            fn ($carry, $item) => $carry->add($item->getPrice()),
-            MoneyValueObject::fromInt(0)
-        );
+            fn ($carry, $item) => $carry + $item->getPrice()->toInt() * $item->getQuantity(),
+            0);
+        return MoneyValueObject::fromInt($total_int);
     }
 }
