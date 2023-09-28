@@ -55,7 +55,7 @@ class CartService
         return $merged;
     }
 
-    protected function merge(CartEntity $main,CartEntity $second): void
+    public function merge(CartEntity $main,CartEntity $second): void
     {
         foreach($second->getItems() as $cartItem)
         {

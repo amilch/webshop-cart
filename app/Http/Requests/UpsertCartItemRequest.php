@@ -24,7 +24,7 @@ class UpsertCartItemRequest extends FormRequest
         return [
             'sku' => 'required|string',
             'name' => 'required|string',
-            'price' => 'required|integer',
+            'price' => 'required|string',
             'quantity' => 'required|integer',
             'session_id' => 'required|string',
         ];

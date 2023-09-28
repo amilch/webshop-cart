@@ -10,6 +10,7 @@ use Domain\Interfaces\CartItemFactory;
 use Domain\Interfaces\CartRepository;
 use Domain\Interfaces\ViewModel;
 use Domain\Services\CartService;
+use Domain\ValueObjects\MoneyValueObject;
 
 class UpsertCartItemInteractor implements UpsertCartItemInputPort
 {
@@ -42,7 +43,7 @@ class UpsertCartItemInteractor implements UpsertCartItemInputPort
                 $newCartItem = $this->cartItemFactory->make([
                     'name' => $request->getName(),
                     'sku' => $request->getSku(),
-                    'price' => $request->getPrice(),
+                    'price' => MoneyValueObject::fromString($request->getPrice())->toInt(),
                     'quantity' => $request->getQuantity(),
                 ]);
 

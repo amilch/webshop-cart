@@ -22,7 +22,7 @@ class UpsertCartItemRequestModel
         return $this->attributes['sku'];
     }
 
-    public function getPrice(): int
+    public function getPrice(): string
     {
         return $this->attributes['price'];
     }
